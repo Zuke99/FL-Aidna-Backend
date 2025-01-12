@@ -15,7 +15,7 @@ app.use(cors()); // Enable CORS for all routes and origins
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => res.send('POS App API'));
+app.get('/', (req, res) => res.send('App Is Running'));
 app.use('/api/auth', authRoutes);
 
 // Start server
