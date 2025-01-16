@@ -6,6 +6,8 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const uploadRoutes = require('./routes/upload');
+const eventRoutes = require('./routes/event');
+
 const authenticateUser = require('./middleware/authMiddleware');
 
 const app = express();
@@ -23,6 +25,7 @@ app.use(express.json());
 app.get('/', (req, res) => res.send('App Is Running'));
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/events', eventRoutes);
 
 // Protected routes
 app.use(authenticateUser)
