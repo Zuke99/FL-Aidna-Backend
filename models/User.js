@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   totalEvents: { type: Number, default: 0 },
   totalFollowers: { type: Number, default: 0 },
   isVerified: { type: Boolean, default: false },
+  image: { type: String, default: 'https://res.cloudinary.com/dk5b3f3zr/image/upload/v1628585794/avatars/avatar-1_ukzj6s.png' },
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
