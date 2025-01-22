@@ -7,8 +7,9 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const uploadRoutes = require('./routes/upload');
 const eventRoutes = require('./routes/event');
+const paymentRoutes = require('./routes/payment')
 
-const authenticateUser = require('./middleware/authMiddleware');
+// const authenticateUser = require('./middleware/authMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -26,9 +27,7 @@ app.get('/', (req, res) => res.send('App Is Running'));
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/events', eventRoutes);
-
-// Protected routes
-app.use(authenticateUser)
 app.use('/api/users', userRoutes);
+app.use('/api/payment', paymentRoutes)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
