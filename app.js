@@ -7,7 +7,8 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const uploadRoutes = require('./routes/upload');
 const eventRoutes = require('./routes/event');
-const paymentRoutes = require('./routes/payment')
+const paymentRoutes = require('./routes/payment');
+const adRoutes = require('./routes/ads');
 
 // const authenticateUser = require('./middleware/authMiddleware');
 
@@ -28,6 +29,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/payment', paymentRoutes)
+app.use('/api/payment', paymentRoutes);
+app.use('/api/ads', adRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
