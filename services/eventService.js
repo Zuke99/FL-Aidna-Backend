@@ -19,18 +19,35 @@ const getAllEvents = async () => {
   }
 };
 
-const getEventById = async (eventId) => {
+const getEventBySlug = async (slug) => {
   try {
-    const event = await Event.findById(eventId);
-    if (!event) throw new Error("Event not found");
-    return event;
+    const event = await Event.findOne({ slug }); 
+    if (!event) {
+      return { message: "Event not found" };
+    }
+    return event; 
   } catch (error) {
-    throw new Error("Error fetching event: " + error.message);
+    console.error("Error fetching event:", error);
+    throw new Error("Internal server error");
+  }
+};
+
+const deleteEvent = async (slug) => {
+  try {
+    const event = await Event.findOneAndDelete({ slug });
+    if (!event) {
+      return { message: "Event not found" };
+    }
+    return { message: "Event deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting event:", error);
+    throw new Error("Internal server error");
   }
 };
 
 module.exports = {
   createEvent,
   getAllEvents,
-  getEventById,
+  getEventBySlug,
+  deleteEvent
 };

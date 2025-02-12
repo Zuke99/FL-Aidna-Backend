@@ -21,19 +21,47 @@ const getAllEvents = async (req, res) => {
   }
 };
 
-const getEventById = async (req, res) => {
+const getEventBySlug = async (req, res) => {
   try {
-    const { eventId } = req.params;
-    const event = await eventService.getEventById(eventId);
-    return res.status(200).json(event);
+    const { slug } = req.params;
+    if (!slug) {
+      return res.status(400).json({ message: "Slug is required" });
+    }
+
+    const result = await eventService.getEventBySlug(slug);
+
+    if (result.message === "Event not found") {
+      return res.status(404).json(result);
+    }
+
+    res.json(result);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
+
+const deleteEvent = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    if (!slug) {
+      return res.status(400).json({ message: "Slug is required" });
+    }
+
+    const result = await eventService.deleteEvent(slug);
+
+    if (result.message === "Event not found") {
+      return res.status(404).json(result);
+    }
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 module.exports = {
   createEvent,
   getAllEvents,
-  getEventById,
+  getEventBySlug,
+  deleteEvent
 };
