@@ -2,8 +2,16 @@ const Event = require("../models/Event");
 
 const createEvent = async (eventData) => {
   try {
+    const { section, priority } = eventData;
+    const existingEvent = await Event.findOne({ section, priority });
+
+    if (existingEvent) {
+      await Event.updateOne({ _id: existingEvent._id }, { priority: 0 });
+    }
+
     const event = new Event(eventData);
     await event.save();
+
     return event;
   } catch (error) {
     throw new Error("Error creating event: " + error.message);
