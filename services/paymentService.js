@@ -8,7 +8,7 @@ const razorpayInstance = new Razorpay({
 
 const createOrder = async (amount) => {
   const options = {
-    amount: Number(amount * 100), // Convert to paise
+    amount: Number(amount * 100),
     currency: "INR",
     receipt: crypto.randomBytes(10).toString("hex"),
   };

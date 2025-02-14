@@ -1,4 +1,5 @@
 const paymentService = require("../services/paymentService");
+const orderService = require("../services/orderService")
 
 const createOrder = async (req, res) => {
   const { amount } = req.body;
@@ -13,8 +14,11 @@ const createOrder = async (req, res) => {
 };
 
 const verifyPayment = async (req, res) => {
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature, firstName, lastName } =
     req.body;
+
+    const name = `${firstName} ${lastName}`
+    const eventData = {...req.body, name}
 
   try {
     const isAuthentic = paymentService.verifyPayment(
@@ -26,6 +30,7 @@ const verifyPayment = async (req, res) => {
     if (isAuthentic) {
       // Payment logic like saving to the database can be added here
       res.json({ message: "Payment Successful" });
+      await orderService.createOrder(eventData)
     } else {
       res.status(400).json({ message: "Invalid Payment Verification!" });
     }
