@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors'); // Import the cors package
+const path = require('path');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
@@ -24,12 +25,17 @@ app.use(cors({
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => res.send('App Is Running'));
+// app.get('/', (req, res) => res.send('App Is Running'));
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/ads', adRoutes);
+
+app.use(express.static(path.join(__dirname,'dist')))
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: path.join(__dirname, 'dist') });
+});
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

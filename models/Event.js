@@ -3,21 +3,21 @@
 
   const eventSchema = new mongoose.Schema(
     {
-      priority: { type: Number, required: true, default: 0 },
-      price: { type: Number, required: true, default: 0 },
-      title: { type: String, required: true },
-      section: { type: String, required: true },
-      slug: { type: String, unique: true },
-      venue: { type: String, required: true },
+      priority: { type: Number, required: false, default: 0 },
+      price: { type: Number, required: false, default: 0 },
+      title: { type: String, required: false },
+      section: { type: String, required: false },
+      slug: { type: String, unique: false },
+      venue: { type: String, required: false },
       language: { type: String },
       duration: { type: String },
       bestFor: { type: String },
-      startDate: { type: String, required: true },
-      endDate: { type: String, required: true },
-      time: { type: String, required: true },
+      startDate: { type: String, required: false },
+      endDate: { type: String, required: false },
+      time: { type: String, required: false },
       tickets: { type: Number, default: 0 },
-      type: { type: String, enum: ["national", "international"], required: true },
-      category: { type: String, required: true },
+      type: { type: String, enum: ["national", "international"], required: false },
+      category: { type: String, required: false },
       companies: { type: Number, default: 0 },
       attendies: { type: Number, default: 0 },
       cLevel: { type: Number, default: 0 },
@@ -25,49 +25,49 @@
       talks: { type: Number, default: 0 },
       exhibits: { type: Number, default: 0 },
       tagline: { type: String },
-      image: { type: String, required: true },
+      image: { type: String, required: false },
       agendas: [
         {
-          date: { type: String, required: true },
+          date: { type: String, required: false },
           agendaItems: [
             {
-              time: { type: String, required: true },
-              agenda: { type: String, required: true },
+              time: { type: String, required: false },
+              agenda: { type: String, required: false },
             },
           ],
         },
       ],
       speakers: [
         {
-          image: { type: String, required: true },
-          name: { type: String, required: true },
-          designation: { type: String, required: true },
-          company: { type: String, required: true },
+          image: { type: String, required: false },
+          name: { type: String, required: false },
+          designation: { type: String, required: false },
+          company: { type: String, required: false },
         },
       ],
       info: { type: String },
       sponsors: [
         {
-          image: { type: String, required: true },
-          name: { type: String, required: true },
-          link: { type: String, required: true },
-          tier: { type: String, required: true },
+          image: { type: String, required: false },
+          name: { type: String, required: false },
+          link: { type: String, required: false },
+          tier: { type: String, required: false },
         },
       ],
       benefits: [{ type: String }],
       attendsFor: [
         {
-          title: { type: String, required: true },
+          title: { type: String, required: false },
           attendees: [{ type: String }],
         },
       ],
     },
-    { timestamps: true }
+    { timestamps: false }
   );
 
   eventSchema.pre("save", function (next) {
     if (!this.slug && this._id) {
-      this.slug = slugify(`${this.title}-${this._id}`, { lower: true, strict: true });
+      this.slug = slugify(`${this.title}-${this._id}`, { lower: false, strict: false });
     }
     next();
   });
