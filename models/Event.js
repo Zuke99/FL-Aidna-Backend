@@ -7,6 +7,8 @@
       price: { type: Number, required: true, default: 0 },
       title: { type: String, required: true },
       section: { type: String, required: true },
+      couponCode: { type: String },
+      couponDiscount: { type: Number },
       slug: { type: String, unique: true },
       venue: { type: String, required: true },
       language: { type: String },
