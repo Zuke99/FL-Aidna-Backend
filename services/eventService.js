@@ -53,9 +53,28 @@ const deleteEvent = async (slug) => {
   }
 };
 
+const updateEvent = async (slug, eventData) => {
+  console.log(eventData, 'edd')
+  try {
+    const event = await Event.findOne ({ slug });
+    if (!event) {
+      return { message: "Event not found" };
+    }
+    await Event.updateOne({
+      _id: event._id
+    }, eventData);  
+    return { message: "Event updated successfully" };
+  }
+  catch (error) {
+    console.error("Error updating event:", error);
+    throw new Error("Internal server error");
+  }
+}
+
 module.exports = {
   createEvent,
   getAllEvents,
   getEventBySlug,
-  deleteEvent
+  deleteEvent,
+  updateEvent
 };
