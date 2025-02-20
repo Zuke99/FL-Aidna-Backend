@@ -53,23 +53,33 @@ const deleteEvent = async (slug) => {
   }
 };
 
-const updateEvent = async (slug, eventData) => {
-  console.log(eventData, 'edd')
+const updateEvent = async (slug, eventData) => {  
   try {
-    const event = await Event.findOne ({ slug });
+    const event = await Event.findOne({ slug });
     if (!event) {
       return { message: "Event not found" };
     }
-    await Event.updateOne({
-      _id: event._id
-    }, eventData);  
-    return { message: "Event updated successfully" };
-  }
-  catch (error) {
+
+    const { section, priority } = eventData;
+
+    const existingEvent = await Event.findOne({ section, priority });
+
+    if (existingEvent && existingEvent._id.toString() !== event._id.toString()) {
+      await Event.findByIdAndUpdate(existingEvent._id, { priority: 0 });
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(
+      event._id,
+      { $set: eventData },
+      { new: true }
+    );
+
+    return { message: "Event updated successfully", updatedEvent };
+  } catch (error) {
     console.error("Error updating event:", error);
     throw new Error("Internal server error");
   }
-}
+};
 
 module.exports = {
   createEvent,
