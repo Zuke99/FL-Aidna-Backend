@@ -7,5 +7,6 @@ router.post('/', eventController.createEvent);
 router.get('/', eventController.getAllEvents);
 router.get('/:slug', eventController.getEventBySlug);
 router.delete('/:slug', eventController.deleteEvent);
+router.put('/:slug', eventController.updateEvent);
 
 module.exports = router;
