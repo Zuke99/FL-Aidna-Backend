@@ -29,6 +29,7 @@
       exhibits: { type: Number, default: 0 },
       tagline: { type: String },
       image: { type: String, required: false },
+      videoUrl: { type: String, required: false },
       agendas: [
         {
           date: { type: String, required: false },
