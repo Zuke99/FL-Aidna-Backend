@@ -11,4 +11,4 @@ const webinarAndPodcastUserSchema = new mongoose.Schema({
   message: { type: String },
 });
 
-module.exports = mongoose.model('WebinarAndPodcastUser', webinarAndPodcastUserSchema);
+module.exports = mongoose.model('WebinarAndPodcastUser', webinarAndPodcastUserSchema, 'webinar_and_podcast_users');  
