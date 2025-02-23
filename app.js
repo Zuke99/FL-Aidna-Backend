@@ -10,6 +10,7 @@ const eventRoutes = require('./routes/event');
 const paymentRoutes = require('./routes/payment');
 const adRoutes = require('./routes/ads');
 const subsribeWebinarsAndPodcastsRoutes = require('./routes/webinarAndPodcastUser');
+const statsRoutes = require('./routes/webinarAndPodcastStats');
 
 // const authenticateUser = require('./middleware/authMiddleware');
 
@@ -33,5 +34,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/ads', adRoutes);
 app.use('/api/subscribe-to-webinars-and-podcasts', subsribeWebinarsAndPodcastsRoutes);
+app.use('/api/webinar-and-podcast-stats', statsRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
