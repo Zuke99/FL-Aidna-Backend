@@ -26,7 +26,7 @@ const webinarAndPodcastUserController = async (req, res) => {
 
     await subsribedUser.save();
 
-    await sendMail('muzammilk7866@gmail.com', 'Interest in Joining Podcast & Webinar Sessions!', 
+    await sendMail('muzammilk7866@gmail.com', 'Interested in Joining Podcast & Webinar Sessions!', 
       `
       Dear Team,
       A new user has subscribed to the Webinars & Podcasts.
@@ -37,6 +37,7 @@ const webinarAndPodcastUserController = async (req, res) => {
       - Type: ${type}
       - Organization: ${organization}
       - Industry: ${industry}
+      - Subject: ${subject}
       - Phone: ${phone}
 
       Message:
