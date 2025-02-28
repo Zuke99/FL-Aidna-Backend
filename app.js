@@ -10,6 +10,10 @@ const uploadRoutes = require('./routes/upload');
 const eventRoutes = require('./routes/event');
 const paymentRoutes = require('./routes/payment');
 const adRoutes = require('./routes/ads');
+const subsribeWebinarsAndPodcastsRoutes = require('./routes/webinarAndPodcastUser');
+const statsRoutes = require('./routes/webinarAndPodcastStats');
+const webinarRoutes = require('./routes/webinar');
+const podcastRoutes = require('./routes/podcast');
 
 // const authenticateUser = require('./middleware/authMiddleware');
 
@@ -32,6 +36,10 @@ app.use('/api/events', eventRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/ads', adRoutes);
+app.use('/api/subscribe-to-webinars-and-podcasts', subsribeWebinarsAndPodcastsRoutes);
+app.use('/api/webinar-and-podcast-stats', statsRoutes);
+app.use('/api/webinars', webinarRoutes);
+app.use('/api/podcasts', podcastRoutes);
 
 app.use(express.static(path.join(__dirname,'dist')))
 app.get('*', (req, res) => {
