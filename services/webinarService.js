@@ -36,7 +36,6 @@ const updateWebinar = async (id, webinarData) => {
 };
 
 const deleteWebinar = async (id) => {
-  console.log(id)
   try {
     const deletedWebinar = await Webinar.findByIdAndDelete(id);
     return deletedWebinar;
