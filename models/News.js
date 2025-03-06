@@ -8,7 +8,7 @@ const newsSchema = new mongoose.Schema(
     label: { type: String, required: true },
     content: { type: String, required: true },
     image: { type: String, required: true },
-    publisher: { type: String, required: true },
+    speaker: { type: String, required: true },
     date: {type: String, required: true},
     views: {type: Number, default: 500},
     section: {type: String, required: true},
