@@ -14,6 +14,7 @@ const subsribeWebinarsAndPodcastsRoutes = require('./routes/webinarAndPodcastUse
 const statsRoutes = require('./routes/webinarAndPodcastStats');
 const webinarRoutes = require('./routes/webinar');
 const podcastRoutes = require('./routes/podcast');
+const newsRoutes = require('./routes/news');
 
 // const authenticateUser = require('./middleware/authMiddleware');
 
@@ -40,6 +41,7 @@ app.use('/api/subscribe-to-webinars-and-podcasts', subsribeWebinarsAndPodcastsRo
 app.use('/api/webinar-and-podcast-stats', statsRoutes);
 app.use('/api/webinars', webinarRoutes);
 app.use('/api/podcasts', podcastRoutes);
+app.use('/api/news', newsRoutes);
 
 app.use(express.static(path.join(__dirname,'dist')))
 app.get('*', (req, res) => {
