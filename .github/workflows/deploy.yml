@@ -1,0 +1,42 @@
+name: CI/CD 
+
+on: 
+  push: 
+    branches:
+      - hosting
+
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Debug SSH Connection
+        uses: appleboy/ssh-action@v1.2.1
+        with: 
+          host: 147.93.107.178 
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          debug: true
+          script: |
+            whoami
+            ls -la
+            pwd
+            echo "SSH Connection Successful!"
+
+      - name: Deploy to Hostinger VPS
+        uses: appleboy/ssh-action@v1.2.1
+        with: 
+          host: 147.93.107.178 
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd /root/websites/aicorp/FL-Aidna-Backend
+            git pull origin hosting
+            npm install --production
+            pm2 restart aidna-backend
+            pm2 save
