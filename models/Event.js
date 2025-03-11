@@ -69,9 +69,12 @@
     { timestamps: false }
   );
 
-  eventSchema.pre("save", function (next) {
-    if (!this.slug && this._id) {
-      this.slug = slugify(`${this.title}-${this._id}`, { lower: false, strict: false });
+  eventSchema.pre("validate", function (next) {
+    if (this.isModified("title") || !this.slug) {
+      this.slug = slugify(`${this.title}-${this._id}`, {
+        lower: true,
+        strict: true,
+      });
     }
     next();
   });

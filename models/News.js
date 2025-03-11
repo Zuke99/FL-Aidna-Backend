@@ -17,8 +17,8 @@ const newsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-newsSchema.pre("save", function (next) {
-  if (!this.slug && this._id) {
+newsSchema.pre("validate", function (next) {
+  if (this.isModified("title") || !this.slug) {
     this.slug = slugify(`${this.title}-${this._id}`, {
       lower: true,
       strict: true,

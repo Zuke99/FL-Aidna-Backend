@@ -40,6 +40,21 @@ const getNewsById = async (id) => {
   }
 };
 
+const getNewsBySlug = async (slug) => {
+  try {
+    const news = await News.findOne({slug}); 
+    if (!news) {
+      return { message: "News not found" };
+    }
+    return news; 
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    throw new Error("Internal server error");
+  }
+};
+
+
+
 const deleteNews = async (id) => {
   try {
     const news = await News.findByIdAndDelete(id);
@@ -86,5 +101,6 @@ module.exports = {
   getAllNews,
   getNewsById,
   deleteNews,
-  updateNews
+  updateNews,
+  getNewsBySlug,
 };

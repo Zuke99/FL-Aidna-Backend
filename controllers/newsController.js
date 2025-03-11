@@ -40,6 +40,25 @@ const getNewsById = async (req, res) => {
   }
 };
 
+const getNewsBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    if (!slug) {
+      return res.status(400).json({ message: "Slug is required" });
+    }
+
+    const result = await newsService.getNewsBySlug(slug);
+
+    if (result.message === "News not found") {
+      return res.status(404).json(result);
+    }
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const deleteNews = async (req, res) => {
   try {
     const { id } = req.params;
@@ -84,5 +103,6 @@ module.exports = {
   getAllNews,
   getNewsById,
   deleteNews,
-  updateNews
+  updateNews,
+  getNewsBySlug
 };
