@@ -37,7 +37,7 @@ const updatePodcast = async (id, podcastData) => {
 
 const deletePodcast = async (id) => {
   try {
-    const deletedPodcast = await Podcast.findByIdAndDelete();
+    const deletedPodcast = await Podcast.findByIdAndDelete(id);
     return deletedPodcast;
   } catch (error) {
     throw new Error("Error deleting podcast: " + error.message);
