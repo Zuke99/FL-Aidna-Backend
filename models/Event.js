@@ -30,9 +30,12 @@
       tagline: { type: String },
       image: { type: String, required: false },
       videoUrl: { type: String, required: false },
+      logo: { type: String, required: false },
+      premiumStages: { type: Number, required: false },
       agendas: [
         {
           date: { type: String, required: false },
+          image: { type: String, required: false },
           agendaItems: [
             {
               time: { type: String, required: false },
@@ -66,7 +69,7 @@
         },
       ],
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 
   eventSchema.pre("validate", function (next) {
