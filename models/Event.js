@@ -22,7 +22,7 @@
       type: { type: String, enum: ["national", "international"], required: false },
       category: { type: String, required: false },
       companies: { type: Number, default: 0 },
-      attendies: { type: Number, default: 0 },
+      attendees: { type: Number, default: 0 },
       cLevel: { type: Number, default: 0 },
       speakersNum: { type: Number, default: 0 },
       talks: { type: Number, default: 0 },
@@ -32,6 +32,7 @@
       videoUrl: { type: String, required: false },
       logo: { type: String, required: false },
       premiumStages: { type: Number, required: false },
+      sponsorsNum: { type: Number, required: false },
       agendas: [
         {
           date: { type: String, required: false },
