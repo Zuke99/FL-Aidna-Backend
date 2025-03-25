@@ -71,7 +71,12 @@ const createCoupon = async (data) => {
 const redeemCoupon = async (code) => {
   const coupon = await Coupon.findOne({ code });
 
-  if (!coupon) throw new Error('Invalid or expired coupon');
+  if (coupon.limit <= 0) {
+    coupon.isActive = false
+    throw new Error('This coupon is expired')
+  }
+
+  if (!coupon || !!coupon.isActive) throw new Error('Invalid or expired coupon');
 
   // Check if the coupon is linked to an event and if the event has already started
   if (coupon.eventId) {
@@ -82,7 +87,7 @@ const redeemCoupon = async (code) => {
   }
 
   // Update total redemption count
-  coupon.redeemedCount = (coupon.redeemedCount || 0) + 1;
+  coupon.limit = (coupon.limit || 0) - 1;
 
   await coupon.save();
   return coupon;

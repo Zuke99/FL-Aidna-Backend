@@ -33,9 +33,9 @@ const createCoupon = async (req, res) => {
 
 const redeemCoupon = async (req, res) => {
   try {
-    const { code } = req.params;
+    const { couponCode } = req.params;
 
-    const coupon = await couponService.redeemCoupon(code);
+    const coupon = await couponService.redeemCoupon(couponCode);
 
     res.json({ message: 'Coupon redeemed successfully', coupon });
   } catch (error) {
