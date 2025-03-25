@@ -5,6 +5,7 @@ const couponSchema = new mongoose.Schema({
   discountAmount: { type: Number, required: true, min: 0 },
   eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: false },
   limit: { type: Number, default: 1 },
+  couponLimit: { type: Number, default: 1 },
   usersRedeemed: [
     {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
