@@ -25,11 +25,10 @@ const createCoupon = async (data) => {
   // Check if a coupon with the same code and eventId already exists
   const existingCoupon = await Coupon.findOne({
     couponCode: data.couponCode.toUpperCase(),
-    eventId: data.eventId,
   });
 
   if (existingCoupon) {
-    throw new Error("A coupon with this code already exists for the selected event.");
+    throw new Error("A coupon with this code already exists.");
   }
 
   return await Coupon.create({
