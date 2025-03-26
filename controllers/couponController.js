@@ -20,6 +20,18 @@ const createCoupon = async (req, res) => {
   }
 };
 
+const getCouponByEventId = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    if (!eventId) return res.status(400).json({ message: "Event ID is required" });
+
+    const coupon = await couponService.getCouponByEventId(eventId);
+    res.status(200).json({coupon})
+  } catch (error) {
+    res.status(500).json({message: error.message})
+  }
+}
+
 // const redeemCoupon = async (req, res) => {
 //   try {
 //     const { code } = req.params;
@@ -33,9 +45,9 @@ const createCoupon = async (req, res) => {
 
 const redeemCoupon = async (req, res) => {
   try {
-    const { code } = req.params;
+    const { couponCode } = req.params;
 
-    const coupon = await couponService.redeemCoupon(code);
+    const coupon = await couponService.redeemCoupon(couponCode);
 
     res.json({ message: 'Coupon redeemed successfully', coupon });
   } catch (error) {
@@ -67,5 +79,6 @@ module.exports = {
   createCoupon,
   redeemCoupon,
   getAllCoupons,
-  deleteCoupon
+  deleteCoupon,
+  getCouponByEventId
 };

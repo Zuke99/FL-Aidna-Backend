@@ -38,6 +38,24 @@ const createCoupon = async (data) => {
   });
 };
 
+const getCouponByEventId = async (eventId) => {
+  try {
+    const coupons = await Coupon.find({ eventId })
+      .populate({
+        path: 'eventId',
+        select: 'title startDate',
+      })
+      .lean(); 
+
+    return coupons.map(({ eventId, ...coupon }) => ({
+      ...coupon,
+      event: eventId,
+    }));
+  } catch (error) {
+    throw new Error('Failed to fetch coupons');
+  }
+};
+
 // const redeemCoupon = async (userId, code) => {
 //   const coupon = await getCouponByCode(code);
 
@@ -68,17 +86,16 @@ const createCoupon = async (data) => {
 //   return coupon;
 // };
 
-const redeemCoupon = async (code) => {
-  console.log(code)
-  const coupon = await Coupon.findOne({ couponCode: code });
-  console.log(coupon)
+const redeemCoupon = async (couponCode) => {
+  const coupon = await Coupon.findOne({ couponCode });
+
+  if (!coupon || !coupon.isActive) throw new Error('Invalid or expired coupon');
 
   if (coupon.limit <= 0) {
     coupon.isActive = false
     throw new Error('This coupon is expired')
   }
 
-  if (!coupon || !coupon.isActive) throw new Error('Invalid or expired coupon');
 
   // Check if the coupon is linked to an event and if the event has already started
   if (coupon.eventId) {
@@ -89,7 +106,7 @@ const redeemCoupon = async (code) => {
   }
 
   // Update total redemption count
-  coupon.limit = (coupon.limit || 0) - 1;
+  // coupon.limit = (coupon.limit || 0) - 1;
 
   await coupon.save();
   return coupon;
@@ -115,5 +132,6 @@ module.exports = {
   createCoupon,
   redeemCoupon,
   getAllCoupons,
-  deleteCoupon
+  deleteCoupon,
+  getCouponByEventId
 };

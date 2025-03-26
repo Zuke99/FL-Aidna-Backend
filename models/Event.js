@@ -4,7 +4,7 @@
   const eventSchema = new mongoose.Schema(
     {
       priority: { type: Number, required: false, default: 0 },
-      price: { type: Number, required: false, default: 0 },
+      standardPrice: { type: Number, required: false, default: 0 },
       title: { type: String, required: false },
       section: { type: String, required: false },
       slug: { type: String, unique: true },
