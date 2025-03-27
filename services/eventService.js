@@ -1,4 +1,5 @@
 const Event = require("../models/Event");
+const Coupon = require("../models/Coupon");
 
 const createEvent = async (eventData) => {
   try {
@@ -46,6 +47,7 @@ const deleteEvent = async (slug) => {
     if (!event) {
       return { message: "Event not found" };
     }
+    await Coupon.deleteMany({ eventId: event._id });
     return { message: "Event deleted successfully" };
   } catch (error) {
     console.error("Error deleting event:", error);
