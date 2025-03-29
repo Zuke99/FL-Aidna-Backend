@@ -16,6 +16,8 @@ const webinarRoutes = require('./routes/webinar');
 const podcastRoutes = require('./routes/podcast');
 const newsRoutes = require('./routes/news');
 const couponRoutes = require('./routes/coupon');
+const landingBannerRoutes = require('./routes/landingBanner');
+const videosRoutes = require('./routes/video');
 
 // const authenticateUser = require('./middleware/authMiddleware');
 
@@ -44,6 +46,8 @@ app.use('/api/webinars', webinarRoutes);
 app.use('/api/podcasts', podcastRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/coupons', couponRoutes)
+app.use('/api/landing-banner', landingBannerRoutes)
+app.use('/api/videos', videosRoutes)
 
 app.use(express.static(path.join(__dirname,'dist')))
 app.get('*', (req, res) => {
