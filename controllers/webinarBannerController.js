@@ -1,8 +1,8 @@
-const LandingBanner = require("../models/LandingBanner");
+const WebinarBanner = require("../models/WebinarBanner");
 
-const getLandingBanner = async (req, res) => {
+const getWebinarBanner = async (req, res) => {
   try {
-    const banner = await LandingBanner.findOne();
+    const banner = await WebinarBanner.findOne();
     if (!banner) {
       return res.status(404).json({ message: "No banner found" });
     }
@@ -12,7 +12,7 @@ const getLandingBanner = async (req, res) => {
   }
 };
 
-const uploadLandingBanner = async (req, res) => {
+const uploadWebinarBanner = async (req, res) => {
   try {
     const { image, videoUrl, showVideo } = req.body; // Use correct field names
 
@@ -20,7 +20,7 @@ const uploadLandingBanner = async (req, res) => {
       return res.status(400).json({ message: "Media type is required" });
     }
 
-    let banner = await LandingBanner.findOne();
+    let banner = await WebinarBanner.findOne();
 
     if (banner) {
       banner.image = image;
@@ -29,7 +29,7 @@ const uploadLandingBanner = async (req, res) => {
       await banner.save();
       return res.status(200).json({ message: "Banner updated", banner });
     } else {
-      banner = new LandingBanner({ image, videoUrl, showVideo: !!videoUrl });
+      banner = new WebinarBanner({ image, videoUrl, showVideo: !!videoUrl });
       await banner.save();
       return res.status(201).json({ message: "Banner created", banner });
     }
@@ -38,4 +38,4 @@ const uploadLandingBanner = async (req, res) => {
   }
 };
 
-module.exports = { getLandingBanner, uploadLandingBanner };
+module.exports = { getWebinarBanner, uploadWebinarBanner };
