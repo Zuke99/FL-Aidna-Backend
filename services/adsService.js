@@ -10,34 +10,16 @@ const updateOrCreateAds = async (newAds, timer) => {
     return newAdsDoc;
   }
 
-  // Map existing ads for easy lookup
-  let updatedAds = [...existingAds.ads];
+  // Keep only ads that exist in newAds
+  const updatedAds = newAds.filter((ad) => ad.type === 'carousel').slice(0, 4);
 
-  // Update or add new ads
-  newAds.forEach((newAd) => {
-    const index = updatedAds.findIndex(
-      (ad) =>
-        (ad.priority === newAd.priority && ad.type === "carousel") ||
-        (ad.type === "banner" && newAd.type === "banner")
-    );
-
-    if (index !== -1) {
-      updatedAds[index] = newAd; // Update existing ad
-    } else {
-      updatedAds.push(newAd); // Add new ad
-    }
-  });
-
-  // Ensure max 4 carousel ads and 1 banner ad
-  const carouselAds = updatedAds.filter((ad) => ad.type === "carousel").slice(0, 4);
-  const bannerAd = updatedAds.find((ad) => ad.type === "banner") || null;
-
-  existingAds.ads = bannerAd ? [...carouselAds, bannerAd] : carouselAds;
+  existingAds.ads = updatedAds;
   existingAds.timer = timer;
   
   await existingAds.save();
   return existingAds;
 };
+
 
 const getAds = async () => {
   const adsData = await Ads.findOne();
