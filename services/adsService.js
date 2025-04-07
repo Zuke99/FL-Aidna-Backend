@@ -23,7 +23,16 @@ const updateOrCreateAds = async (newAds, timer) => {
 
 const getAds = async () => {
   const adsData = await Ads.findOne();
-  return adsData || { ads: [], timer: 0 };
-}
+  
+  if (!adsData) return { ads: [], timer: 0 };
+
+  const sortedAds = adsData.ads.sort((a, b) => a.priority - b.priority);
+
+  return {
+    ads: sortedAds,
+    timer: adsData.timer
+  };
+};
+
 
 module.exports = { updateOrCreateAds, getAds };
