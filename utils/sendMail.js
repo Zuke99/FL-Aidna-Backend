@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
   secure: true,
-  host: 'smtp.gmail.com',
+  host: 'smtp.hostinger.com',
   port: 465,
   auth: {
     user: process.env.NODEMAILER_EMAIL,
