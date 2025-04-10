@@ -43,7 +43,7 @@ const subscribeMail = async (email) => {
   try {
     await sendMail(
       process.env.NODEMAILER_EMAIL,
-      "New Subscriber F or Event Updates",
+      "New Subscriber For Event Updates",
       `You have received a new event subscription.
 
 Details:
