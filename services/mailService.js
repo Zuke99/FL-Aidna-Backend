@@ -34,6 +34,22 @@ ${message}
 
 `
     );
+
+    await sendMail(
+      email,
+      "Thanks for contacting Media2AI",
+`Hi ${firstName},
+
+Thank you for reaching out to Media2AI!
+
+We've received your message and our team will get back to you as soon as possible. If your inquiry is urgent, feel free to follow up by replying to this email.
+
+We appreciate your interest and will be in touch shortly.
+
+Best regards,  
+The Media2AI Team`
+    );
+    
   } catch (error) {
     throw new Error('An error occured while sending the message'+ error.message)
   }
@@ -51,6 +67,55 @@ Email: ${email}
 
 `
     );
+    await sendMail(
+      email,
+      "You're Subscribed to Event Updates",
+`Hi there,
+
+Thank you for subscribing to our event updates!
+
+We're excited to keep you informed about our latest and upcoming events.
+
+Stay tuned!
+
+Best regards,  
+The Media2AI Team`
+    );
+    
+  } catch (error) {
+    throw new Error('An error occurred while sending the subscription email: ' + error.message);
+  }
+};
+
+const subscribeNewsMail = async (email) => {
+  try {
+    
+    await sendMail(
+      process.env.NODEMAILER_EMAIL,
+      "New Subscriber For AI News",
+      `You have received a new AI news subscription.
+
+Details:
+Email: ${email}
+
+`
+    );
+
+    await sendMail(
+      email,
+      "You're Subscribed to AI News Updates",
+`Hi there,
+
+Thank you for subscribing to our AI news updates!
+
+We're excited to keep you informed about our latest and upcoming AI news.
+
+Stay tuned!
+
+Best regards,  
+The Media2AI Team`
+    );
+
   } catch (error) {
     throw new Error('An error occurred while sending the subscription email: ' + error.message);
   }
@@ -90,6 +155,22 @@ Preferred Contact Method: ${contactPreference}
 
 `
     );
+
+    await sendMail(
+      email,
+      "We've received your sponsorship request – Media2AI",
+`Hi ${firstName},
+
+Thank you for submitting your sponsorship request to Media2AI!
+
+We’ve received your request and our team will be reviewing your proposal shortly. We're excited about the opportunity to collaborate with you. You can expect to hear from us soon via your preferred contact method (${contactPreference}).
+
+If you have any updates or additional information, feel free to reply to this email.
+
+Thanks again,  
+The Media2AI Team`
+    );
+    
   } catch (error) {
     throw new Error('An error occurred while sending the subscription email: ' + error.message);
   }
@@ -100,5 +181,6 @@ Preferred Contact Method: ${contactPreference}
 module.exports = {
   contactMail,
   subscribeMail,
-  sponsorshipRequestMail
+  sponsorshipRequestMail,
+  subscribeNewsMail
 }

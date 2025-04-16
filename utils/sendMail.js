@@ -13,12 +13,13 @@ const transporter = nodemailer.createTransport({
 
 const sendMail = async (email, subject, text) => {
   const mailOptions = {
+    from: `"Media2AI" <${process.env.NODEMAILER_EMAIL}>`,
     to: email,
     subject,
     text,
   };
 
   await transporter.sendMail(mailOptions);
-}
+};
 
 module.exports = sendMail;
