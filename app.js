@@ -23,6 +23,7 @@ const newsBannerRoutes = require('./routes/newsBanner');
 const exposBannerRoutes = require('./routes/exposBanner');
 const videosRoutes = require('./routes/video');
 const mailRoutes = require('./routes/mail');
+const HeaderLogoRoutes = require('./routes/headerLogo');
 
 // const authenticateUser = require('./middleware/authMiddleware');
 
@@ -58,6 +59,7 @@ app.use('/api/news-banner', newsBannerRoutes)
 app.use('/api/expos-banner', exposBannerRoutes)
 app.use('/api/videos', videosRoutes)
 app.use('/api/mail', mailRoutes)
+app.use('/api/header', HeaderLogoRoutes)
 
 app.use(express.static(path.join(__dirname,'dist')))
 app.get('*', (req, res) => {
