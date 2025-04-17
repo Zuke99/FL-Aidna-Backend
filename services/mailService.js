@@ -176,11 +176,45 @@ The Media2AI Team`
   }
 };
 
+const subscribeToNewsletterMail = async (email) => {
+  try {
+    // Send email to admin
+    await sendMail(
+      process.env.NODEMAILER_EMAIL,
+      "New Newsletter Subscriber",
+      `You have received a new newsletter subscription.
+
+Details:
+Email: ${email}
+`
+    );
+
+    // Send confirmation to user
+    await sendMail(
+      email,
+      "You're Subscribed to Our Newsletter",
+`Hi there,
+
+Thank you for subscribing to our newsletter!
+
+You’ll now receive the latest updates, insights, and special content directly in your inbox.
+
+Stay tuned!
+
+Best regards,  
+The Media2AI Team`
+    );
+
+  } catch (error) {
+    throw new Error('An error occurred while sending the subscription email: ' + error.message);
+  }
+};
 
 
 module.exports = {
   contactMail,
   subscribeMail,
   sponsorshipRequestMail,
-  subscribeNewsMail
+  subscribeNewsMail,
+  subscribeToNewsletterMail
 }
