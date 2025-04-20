@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors'); // Import the cors package
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
@@ -60,6 +61,19 @@ app.use('/api/expos-banner', exposBannerRoutes)
 app.use('/api/videos', videosRoutes)
 app.use('/api/mail', mailRoutes)
 app.use('/api/header', HeaderLogoRoutes)
+const uploadDir = path.join(__dirname, '../uploads');
+
+// Check if folder exists, if not, create it
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true }); // recursive handles nested paths
+  console.log('✅ uploads folder created automatically');
+}
+
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// Absolute path to the uploads folder
+
 
 app.use(express.static(path.join(__dirname,'dist')))
 app.get('*', (req, res) => {

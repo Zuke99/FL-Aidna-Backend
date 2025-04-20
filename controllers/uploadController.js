@@ -1,44 +1,18 @@
-const uploadService = require("../services/uploadService");
-const multer = require("multer");
+// backend/controller/uploadController.js
+const multer = require('multer');
+const path = require('path');
 
-const storage = multer.memoryStorage(); // Store file in memory before uploading to Cloudinary
-const upload = multer({ 
-  storage,
-  limits: {
-    fileSize: 100 * 1024 * 1024, // 100MB limit
+// Configure multer to store uploaded files in 'uploads/' folder
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../../uploads')); // Relative to backend folder
   },
-  fileFilter: (req, file, cb) => {
-    // Define allowed mime types
-    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    const allowedVideoTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
-    
-    if (allowedImageTypes.includes(file.mimetype) || allowedVideoTypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Invalid file type. Allowed types: JPEG, PNG, GIF, WEBP, MP4, WEBM, MOV'));
-    }
-  }
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname); // Unique filename
+  },
 });
 
-const uploadFile = async (req, res) => {
-  console.log('called')
-  try {
-    if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded" });
-    }
-    console.log(req.file)
-    const result = await uploadService.upload(req.file);
-    console.log(result)
-    res.json(result);
-  } catch (error) {
-    console.error("Error during file upload:", error);
-    res.status(500).json({
-      error: error.message || "Internal Server Error"
-    });
-  }
-};
+const upload = multer({ storage: storage });
 
-module.exports = {
-  uploadFile,
-  uploadMiddleware: upload.single("media"), // Use a single field name for both image and video
-};
+// Export the upload middleware to be used in routes
+module.exports = { upload };
