@@ -58,7 +58,7 @@ const verifyPayment = async (req, res) => {
         We truly appreciate your participation and can’t wait to see you at ${event}. Thank you for choosing to be part of this amazing experience!
       
         Best regards,  
-        AI Corp
+        media2ai
         `
       )
       

@@ -46,7 +46,7 @@ const webinarAndPodcastUserController = async (req, res) => {
       You may follow up with the subscriber for further engagement.
 
       Best regards,  
-      AI Corp
+      media2ai
       `
     )
 
