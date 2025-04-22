@@ -11,8 +11,8 @@ router.post('/', upload.single('media'), (req, res) => {
 
   // Generate the file URL to be sent back to the client
   // FOr production
-  // const fileUrl = `https://media2ai.com/uploads/${req.file.filename}`;
-  const fileUrl = `https://staging-media2ai.tekit.in/uploads/${req.file.filename}`;
+  const fileUrl = `https://media2ai.com/uploads/${req.file.filename}`;
+  // const fileUrl = `https://staging-media2ai.tekit.in/uploads/${req.file.filename}`;
   // const fileUrl = `E:\project/uploads/${req.file.filename}`;
   
   
