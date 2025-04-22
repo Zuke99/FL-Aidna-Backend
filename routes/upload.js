@@ -13,12 +13,13 @@ router.post('/', upload.single('media'), (req, res) => {
   // FOr production
   // const fileUrl = `https://media2ai.com/uploads/${req.file.filename}`;
   const fileUrl = `https://staging-media2ai.tekit.in/uploads/${req.file.filename}`;
+  // const fileUrl = `E:\project/uploads/${req.file.filename}`;
   
   
   res.status(200).json({
     success: true,
     message: 'File uploaded successfully',
-    signed_url: fileUrl,
+    secure_url: fileUrl,
   });
 });
 
