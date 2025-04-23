@@ -25,6 +25,7 @@ const exposBannerRoutes = require('./routes/exposBanner');
 const videosRoutes = require('./routes/video');
 const mailRoutes = require('./routes/mail');
 const HeaderLogoRoutes = require('./routes/headerLogo');
+const FooterLogoRoutes = require('./routes/footerLogo')
 
 // const authenticateUser = require('./middleware/authMiddleware');
 
@@ -61,6 +62,7 @@ app.use('/api/expos-banner', exposBannerRoutes)
 app.use('/api/videos', videosRoutes)
 app.use('/api/mail', mailRoutes)
 app.use('/api/header', HeaderLogoRoutes)
+app.use('/api/footer', FooterLogoRoutes)
 const uploadDir = path.join(__dirname, '../uploads');
 
 if (!fs.existsSync(uploadDir)) {
